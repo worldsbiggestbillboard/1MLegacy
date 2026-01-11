@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>1M LEGACY | Official Digital Billboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="top-row">
+        <h1>1M LEGACY</h1>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/1MLegacyOfficial" target="_blank">f</a>
+            <a href="https://www.instagram.com/1mlegacyofficial/" target="_blank">ig</a>
+            <a href="https://x.com/MLegacyOfficial" target="_blank">𝕏</a>
+        </div>
+    </div>
+    <div class="live-tracker">
+        <div class="counter-box"><span id="total-spots">1,000,000</span><label>Total Slots</label></div>
+        <div class="counter-box"><span id="sold-count">0</span><label>Sold</label></div>
+        <button class="btn-buy" onclick="alert('Double-click on any empty box to buy!')">HOW TO BUY?</button>
+    </div>
+</header>
+
+<div id="viewport">
+    <div id="grid-container"></div>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeModals()"></div>
+
+<div id="selectionModal" class="modal">
+    <h3 class="neon-text">SPOT SELECTED</h3>
+    <p id="spotIDDisplay" style="color: #00ffcc; font-weight: bold;"></p>
+    <input type="text" id="custLink" placeholder="Your Website (https://...)">
+    <input type="text" id="custLogo" placeholder="Logo Link (Direct Image Link)">
+    <div class="pay-info">
+        Pay $10 USDT (TRC20):<br>
+        <strong style="color:var(--primary); font-size: 12px;">TTapBkTqrDnzHbWzek6wSBUTcJKFmR8Ws6</strong>
+    </div>
+    <button class="btn-buy" onclick="submitRequest()">SEND FOR APPROVAL</button>
+</div>
+
+<footer>
+    <p>1M LEGACY © 2026. All rights reserved. Images featured are © of their respective owners.</p>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

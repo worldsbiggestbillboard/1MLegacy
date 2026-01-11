@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel | 1M LEGACY</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { overflow-y: auto; padding: 20px; background: #050505; color: white; text-align: left; }
+        #login-area { text-align: center; margin-top: 100px; }
+        .request-card { background: #111; border: 1px solid #00ffcc; padding: 15px; margin: 10px 0; border-radius: 8px; }
+        .btn-approve { background: #25d366; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 4px; }
+        .btn-reject { background: #ff4444; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 4px; }
+        input[type="password"] { padding: 10px; width: 250px; background: #000; border: 1px solid #333; color: white; margin-bottom: 10px; }
+        #admin-content { display: none; }
+    </style>
+</head>
+<body>
+    <div id="login-area">
+        <h2 style="color:#00ffcc;">Admin Login</h2>
+        <input type="password" id="adminPass" placeholder="Enter Password"><br>
+        <button class="btn-buy" onclick="checkPass()">Login</button>
+    </div>
+
+    <div id="admin-content">
+        <h1 style="color:#00ffcc;">Pending Requests</h1>
+        <div id="pending-list">Loading...</div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script src="script.js"></script>
+    <script>
+        function checkPass() {
+            if(document.getElementById('adminPass').value === "KAWSARahmed22@@") {
+                document.getElementById('login-area').style.display = 'none';
+                document.getElementById('admin-content').style.display = 'block';
+                loadRequests();
+            } else { alert("Wrong Password!"); }
+        }
+
+        function loadRequests() {
+            const db = firebase.database();
+            db.ref('pixels').on('value', (snapshot) => {
+                const list = document.getElementById('pending-list');
+                list.innerHTML = '';
+                snapshot.forEach((child) => {
+                    const val = child.val();
+                    if(val.status === 'pending') {
+                        list.innerHTML += `
+                            <div class="request-card">
+                                <strong>Spot ID: #${child.key}</strong><br>
+                                Link: ${val.link}<br>
+                                Logo: ${val.logo}<br><br>
+                                <button class="btn-approve" onclick="updateStatus('${child.key}', 'approved')">APPROVE</button>
+                                <button class="btn-reject" onclick="updateStatus('${child.key}', 'rejected')">REJECT</button>
+                            </div>`;
+                    }
+                });
+            });
+        }
+
+        function updateStatus(id, stat) {
+            firebase.database().ref('pixels/' + id).update({ status: stat });
+        }
+    </script>
+</body>
+</html>
